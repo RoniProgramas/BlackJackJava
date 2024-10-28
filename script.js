@@ -61,8 +61,12 @@ function shuffle(array) {
 
 // Função para o jogador "HIT"
 function hit() {
-    jogador.push(mazo.pop()); 
+    document.getElementById('hit-button').disabled = true; 
+    setTimeout(() => document.getElementById('hit-button').disabled = false, 500); 
+
+    jogador.push(mazo.pop());
     const pontuacaoJogador = calcularPontuacao(jogador);
+
     document.getElementById('player-cards').innerHTML = jogador.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
     document.getElementById('player-score').innerText = `Pontuação: ${pontuacaoJogador}`;
 
