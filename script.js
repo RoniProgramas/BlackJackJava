@@ -59,30 +59,25 @@ function shuffle(array) {
     }
 }
 
+// Função para o jogador "HIT"
 function hit() {
     if (!gameOver) {
-   
-        playerHand.push(mazo.pop());
-        
-       
-        const playerValue = calculateHandValue(playerHand);
+        jogador.push(mazo.pop()); // Adiciona apenas uma carta ao jogador
+
+        const playerValue = calcularPontuacao(jogador);
         if (playerValue > 21) {
             gameOver = true;
             document.getElementById("message").innerText = "Você estourou! Dealer venceu.";
         }
-        
-        updateDisplay();
+
+        updateDisplay(); // Atualiza a exibição do jogo
     }
 }
-
 
 // Função para o jogador "STAND"
 function stand() {
     // O dealer revela a segunda carta e finaliza a mão
-    while (calcularPontuacao(dealer) < 17) {
-        dealer.push(mazo.pop());
-    }
-
+    dealer.push(mazo.pop()); // O dealer tira uma carta para completar a mão
     ajustarPontuacaoDealer();
 
     const pontuacaoJogador = calcularPontuacao(jogador);
@@ -105,23 +100,15 @@ function stand() {
 // Função para garantir que o dealer sempre tenha entre 19 e 21
 function ajustarPontuacaoDealer() {
     let pontuacaoDealer = calcularPontuacao(dealer);
-
-    while (pontuacaoDealer < 19 || pontuacaoDealer > 21) {
-        dealer.pop();
-        const novaCarta = mazo.find(carta => {
-            const novaMao = [...dealer, carta];
-            const novaPontuacao = calcularPontuacao(novaMao);
-            return novaPontuacao >= 19 && novaPontuacao <= 21;
-        });
-        
-        if (novaCarta) {
-            dealer.push(novaCarta);
-            mazo = mazo.filter(carta => carta !== novaCarta);
-            pontuacaoDealer = calcularPontuacao(dealer);
-        } else {
-            break;
-        }
+    
+    // Adiciona cartas até que o dealer atinja uma pontuação entre 19 e 21
+    while (pontuacaoDealer < 19 && mazo.length > 0) {
+        dealer.push(mazo.pop());
+        pontuacaoDealer = calcularPontuacao(dealer);
     }
+
+    // Se a pontuação do dealer for 21, não faz mais nada
+    // Se estiver entre 19 e 21, permanece assim
 }
 
 // Função para finalizar o jogo
