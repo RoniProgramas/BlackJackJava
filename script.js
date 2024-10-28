@@ -83,10 +83,14 @@ function updateDisplay() {
 
 // Função para o jogador "STAND"
 function stand() {
-    // O dealer revela a segunda carta
     dealer.push(mazo.pop()); // O dealer tira uma carta para completar a mão
-    ajustarPontuacaoDealer(); // Ajusta a pontuação do dealer
 
+    // Lógica do dealer para garantir que ele não estoure
+    while (calcularPontuacao(dealer) < 19 && mazo.length > 0) {
+        dealer.push(mazo.pop()); // O dealer continua puxando cartas até ter pelo menos 19
+    }
+
+    // Revela as cartas do dealer
     const pontuacaoJogador = calcularPontuacao(jogador);
     const pontuacaoDealer = calcularPontuacao(dealer);
 
@@ -105,20 +109,6 @@ function stand() {
     }
 
     finalizarJogo();
-}
-
-// Função para garantir que o dealer sempre tenha entre 19 e 21
-function ajustarPontuacaoDealer() {
-    let pontuacaoDealer = calcularPontuacao(dealer);
-    
-    // Enquanto a pontuação do dealer for menor que 19, ele tira cartas
-    while (pontuacaoDealer < 19 && mazo.length > 0) {
-        const novaCarta = mazo.pop(); // Puxa uma nova carta do mazo
-        dealer.push(novaCarta); // Adiciona a nova carta à mão do dealer
-        pontuacaoDealer = calcularPontuacao(dealer); // Recalcula a pontuação do dealer
-    }
-
-    // Se o dealer estourar, não faz nada, pois já estará lidando no "stand"
 }
 
 // Função para finalizar o jogo
