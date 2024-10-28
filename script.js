@@ -61,10 +61,10 @@ function shuffle(array) {
 
 function hit() {
     if (!gameOver) {
-        // Adiciona uma única carta ao jogador
+   
         playerHand.push(mazo.pop());
         
-        // Calcula a pontuação do jogador e verifica se ele estourou
+       
         const playerValue = calculateHandValue(playerHand);
         if (playerValue > 21) {
             gameOver = true;
