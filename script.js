@@ -1,7 +1,6 @@
 let mazo = [];
 let jogador = [];
 let dealer = [];
-let gameOver = false;
 
 // Função para criar o mazo de cartas
 function criarMazo() {
@@ -14,13 +13,13 @@ function criarMazo() {
 function calcularPontuacao(mao) {
     let total = 0;
     let ases = 0;
-
+    
     mao.forEach(carta => {
         if (['J', 'Q', 'K'].includes(carta.valor)) {
             total += 10;
         } else if (carta.valor === 'A') {
             total += 11;
-            ases++;
+            ases += 1;
         } else {
             total += parseInt(carta.valor);
         }
@@ -37,16 +36,16 @@ function calcularPontuacao(mao) {
 function iniciarJogo() {
     mazo = criarMazo();
     shuffle(mazo);
-
+    
     jogador = [mazo.pop(), mazo.pop()];
     dealer = [mazo.pop()]; // Apenas uma carta visível do dealer
 
     document.getElementById('player-cards').innerHTML = jogador.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
     document.getElementById('player-score').innerText = `Pontuação: ${calcularPontuacao(jogador)}`;
-
+    
     document.getElementById('dealer-cards').innerHTML = `${dealer[0].valor}${dealer[0].naipe}, ?`; // Exibe apenas uma carta do dealer
     document.getElementById('dealer-score').innerText = '';
-
+    
     document.getElementById('hit-button').disabled = false;
     document.getElementById('stand-button').disabled = false;
     document.getElementById('message').innerText = '';
@@ -63,46 +62,32 @@ function shuffle(array) {
 // Função para o jogador "HIT"
 function hit() {
     if (!gameOver) {
-        jogador.push(mazo.pop()); // Adiciona apenas uma carta ao jogador
-        const playerValue = calcularPontuacao(jogador);
-
+        playerHand.push(mazo.pop());
+        const playerValue = calculateHandValue(playerHand);
         if (playerValue > 21) {
             gameOver = true;
             document.getElementById("message").innerText = "Você estourou! Dealer venceu.";
         }
-
-        updateDisplay(); // Atualiza a exibição do jogo
+        updateDisplay();
     }
-}
-
-// Função para atualizar a exibição do jogador
-function updateDisplay() {
-    document.getElementById('player-cards').innerHTML = jogador.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
-    document.getElementById('player-score').innerText = `Pontuação: ${calcularPontuacao(jogador)}`;
 }
 
 // Função para o jogador "STAND"
 function stand() {
-    while (calcularPontuacao(dealer) < 20 && mazo.length > 0) {
-        const cartaNecessaria = calcularCartaNecessaria(dealer);
-        if (cartaNecessaria) {
-            dealer.push(cartaNecessaria);
-        } else {
-            break; // Se não houver carta necessária, interrompe
-        }
+    // O dealer revela a segunda carta e finaliza a mão
+    while (calcularPontuacao(dealer) < 17) {
+        dealer.push(mazo.pop());
     }
 
-    // Revela as cartas do dealer
+    ajustarPontuacaoDealer();
+
     const pontuacaoJogador = calcularPontuacao(jogador);
     const pontuacaoDealer = calcularPontuacao(dealer);
 
     document.getElementById('dealer-cards').innerHTML = dealer.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
     document.getElementById('dealer-score').innerText = `Pontuação: ${pontuacaoDealer}`;
 
-    // Verifica quem venceu
-    if (pontuacaoDealer > 21) {
-        document.getElementById('message').innerText = "Dealer estourou! Você venceu!";
-    } else if (pontuacaoDealer > pontuacaoJogador) {
+    if (pontuacaoDealer > pontuacaoJogador) {
         document.getElementById('message').innerText = "Dealer venceu!";
     } else if (pontuacaoJogador > pontuacaoDealer) {
         document.getElementById('message').innerText = "Você venceu!";
@@ -113,29 +98,26 @@ function stand() {
     finalizarJogo();
 }
 
-// Função para determinar a carta que o dealer deve puxar
-function calcularCartaNecessaria(dealer) {
-    const pontuacaoAtual = calcularPontuacao(dealer);
-    let cartaNecessaria;
+// Função para garantir que o dealer sempre tenha entre 19 e 21
+function ajustarPontuacaoDealer() {
+    let pontuacaoDealer = calcularPontuacao(dealer);
 
-    if (pontuacaoAtual < 21) {
-        const valorNecessario = 21 - pontuacaoAtual;
-
-        // Encontra uma carta no mazo que tenha o valor necessário
-        cartaNecessaria = mazo.find(carta => {
-            const valor = carta.valor;
-            if (valor === 'A') return valorNecessario <= 11; // Ás pode contar como 1 ou 11
-            if (isNaN(valor)) return false; // J, Q, K não contam como números
-            return parseInt(valor) <= valorNecessario; // Verifica se a carta não faz estourar
+    while (pontuacaoDealer < 19 || pontuacaoDealer > 21) {
+        dealer.pop();
+        const novaCarta = mazo.find(carta => {
+            const novaMao = [...dealer, carta];
+            const novaPontuacao = calcularPontuacao(novaMao);
+            return novaPontuacao >= 19 && novaPontuacao <= 21;
         });
-
-        // Remove a carta do mazo para que não seja usada novamente
-        if (cartaNecessaria) {
-            mazo = mazo.filter(carta => carta !== cartaNecessaria);
+        
+        if (novaCarta) {
+            dealer.push(novaCarta);
+            mazo = mazo.filter(carta => carta !== novaCarta);
+            pontuacaoDealer = calcularPontuacao(dealer);
+        } else {
+            break;
         }
     }
-
-    return cartaNecessaria;
 }
 
 // Função para finalizar o jogo
