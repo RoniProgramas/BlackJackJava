@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2c3e50; /* Cor de fundo escura */
+    color: white; /* Cor do texto */
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px; /* Limita a largura do container */
+    margin: 0 auto; /* Centraliza o container na tela */
+    padding: 20px;
+    background-color: #34495e; /* Cor de fundo do container */
+    border-radius: 10px; /* Cantos arredondados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
+}
+
+h1, h2 {
+    text-align: center; /* Centraliza os títulos */
+}
+
+#game {
+    margin-bottom: 20px; /* Espaço abaixo do jogo */
+}
+
+#player-hand, #dealer-hand {
+    margin: 20px 0; /* Espaço entre as mãos do jogador e do dealer */
+    padding: 10px;
+    border: 1px solid #ecf0f1; /* Borda clara */
+    border-radius: 5px; /* Cantos arredondados */
+}
+
+#player-cards, #dealer-cards {
+    font-size: 1.5em; /* Tamanho maior para as cartas */
+}
+
+.buttons {
+    text-align: center; /* Centraliza os botões */
+}
+
+button {
+    background-color: #27ae60; /* Cor verde para os botões */
+    color: white; /* Cor do texto dos botões */
+    border: none; /* Remove a borda padrão */
+    border-radius: 5px; /* Cantos arredondados nos botões */
+    padding: 10px 20px; /* Espaço interno dos botões */
+    font-size: 1em; /* Tamanho da fonte dos botões */
+    cursor: pointer; /* Cursor de mão ao passar sobre o botão */
+    margin: 5px; /* Espaço entre os botões */
+}
+
+button:disabled {
+    background-color: #95a5a6; /* Cor cinza para botões desativados */
+    cursor: not-allowed; /* Cursor de não permitido */
+}
+
+#message {
+    text-align: center; /* Centraliza a mensagem */
+    font-size: 1.2em; /* Tamanho da fonte da mensagem */
+    margin-top: 20px; /* Espaço acima da mensagem */
+}
