@@ -1,6 +1,7 @@
 let mazo = [];
 let jogador = [];
 let dealer = [];
+let gameOver = false; // Adicionando a variável gameOver para controlar o estado do jogo
 
 // Função para criar o mazo de cartas
 function criarMazo() {
@@ -86,7 +87,9 @@ function stand() {
     document.getElementById('dealer-cards').innerHTML = dealer.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
     document.getElementById('dealer-score').innerText = `Pontuação: ${pontuacaoDealer}`;
 
-    if (pontuacaoDealer > pontuacaoJogador) {
+    if (pontuacaoDealer > 21) {
+        document.getElementById('message').innerText = "Dealer estourou! Você venceu!";
+    } else if (pontuacaoDealer > pontuacaoJogador) {
         document.getElementById('message').innerText = "Dealer venceu!";
     } else if (pontuacaoJogador > pontuacaoDealer) {
         document.getElementById('message').innerText = "Você venceu!";
@@ -101,14 +104,17 @@ function stand() {
 function ajustarPontuacaoDealer() {
     let pontuacaoDealer = calcularPontuacao(dealer);
     
-    // Adiciona cartas até que o dealer atinja uma pontuação entre 19 e 21
     while (pontuacaoDealer < 19 && mazo.length > 0) {
-        dealer.push(mazo.pop());
-        pontuacaoDealer = calcularPontuacao(dealer);
-    }
+        const novaCarta = mazo.pop(); // Puxa uma nova carta do mazo
+        dealer.push(novaCarta); // Adiciona a nova carta à mão do dealer
+        pontuacaoDealer = calcularPontuacao(dealer); // Recalcula a pontuação do dealer
 
-    // Se a pontuação do dealer for 21, não faz mais nada
-    // Se estiver entre 19 e 21, permanece assim
+        // Se o dealer estourar, ele não pode ter mais cartas
+        if (pontuacaoDealer > 21) {
+            dealer.pop(); // Remove a carta que estourou
+            break; // Para evitar continuar a puxar mais cartas
+        }
+    }
 }
 
 // Função para finalizar o jogo
