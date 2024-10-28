@@ -30,6 +30,33 @@ function iniciarJogo() {
     dealer = [mazo.pop(), mazo.pop()];
 
     atualizarInterface();
+function turnoDealer() {
+    // O dealer deve tirar cartas até atingir pelo menos 19
+    while (calcularPontuacao(dealer) < 19) {
+        dealer.push(mazo.pop());
+    }
+
+    // Atualizar a interface para mostrar a mão do dealer
+    document.getElementById('dealer-cards').innerText = dealer.map(c => c.join(' ')).join(', ');
+    document.getElementById('dealer-score').innerText = `Pontuação: ${calcularPontuacao(dealer)}`;
+
+    // Verificar o resultado do jogo
+    verificarResultado();
+}
+
+function verificarResultado() {
+    const pontuacaoJogador = calcularPontuacao(jogador);
+    const pontuacaoDealer = calcularPontuacao(dealer);
+
+    if (pontuacaoJogador > 21) {
+        document.getElementById('message').innerText = "Você estourou! Dealer venceu.";
+    } else if (pontuacaoDealer > 21 || pontuacaoJogador > pontuacaoDealer) {
+        document.getElementById('message').innerText = "Você venceu!";
+    } else if (pontuacaoJogador < pontuacaoDealer) {
+        document.getElementById('message').innerText = "Dealer venceu!";
+    } else {
+        document.getElementById('message').innerText = "Empate!";
+    }
 }
 
 function atualizarInterface() {
@@ -37,6 +64,12 @@ function atualizarInterface() {
     document.getElementById('player-score').innerText = `Pontuação: ${calcularPontuacao(jogador)}`;
     document.getElementById('dealer-cards').innerText = `${dealer[0].join(' ')} e ?`;
 }
+
+// Evento de clique para iniciar o jogo
+document.getElementById('start-button').addEventListener('click', () => {
+    iniciarJogo();
+    turnoDealer();  // Adiciona o turno do dealer assim que o jogo inicia
+});
 
 // Evento de clique para iniciar o jogo
 document.getElementById('start-button').addEventListener('click', iniciarJogo);
