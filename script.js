@@ -1,6 +1,7 @@
 let mazo = [];
 let jogador = [];
 let dealer = [];
+let jogoAtivo = false;
 
 function criarMazo() {
     const naipes = ['♥', '♦', '♣', '♠'];
@@ -37,17 +38,70 @@ function calcularPontuacao(mao) {
     return total;
 }
 
+function atualizarInterface() {
+    // Atualiza a interface do jogador
+    document.getElementById('player-cards').innerHTML = jogador.map(c => `${c.valor}${c.naipe}`).join(', ');
+    document.getElementById('player-score').innerText = `Pontuação: ${calcularPontuacao(jogador)}`;
+    
+    // Atualiza a interface do dealer
+    document.getElementById('dealer-cards').innerHTML = dealer.map(c => `${c.valor}${c.naipe}`).join(', ');
+    document.getElementById('dealer-score').innerText = `Pontuação: ${calcularPontuacao(dealer)}`;
+
+    // Verifica se o jogo acabou
+    if (jogoAtivo) {
+        const pontuacaoJogador = calcularPontuacao(jogador);
+        const pontuacaoDealer = calcularPontuacao(dealer);
+        if (pontuacaoJogador > 21) {
+            document.getElementById('message').innerText = 'Você estourou! Dealer venceu.';
+            jogoAtivo = false;
+        }
+    }
+}
+
 function iniciarJogo() {
     criarMazo();
-    // Embaralhar o mazo
     mazo.sort(() => Math.random() - 0.5);
 
     jogador = [mazo.pop(), mazo.pop()];
     dealer = [mazo.pop(), mazo.pop()];
 
-    // Exibir mãos e pontuações
-    console.log(`Mão do Jogador: ${jogador.map(c => c.valor + c.naipe)} | Pontuação ${calcularPontuacao(jogador)}`);
-    console.log(`Mão do Dealer: [${dealer[0].valor + dealer[0].naipe}, ?]`);
+    jogoAtivo = true;
+    document.getElementById('hit-button').disabled = false;
+    document.getElementById('stand-button').disabled = false;
 
-    // Adicione a lógica para o jogo aqui (turno do jogador e dealer)
+    atualizarInterface();
+}
+
+// Adicione as funções hit() e stand()
+function hit() {
+    if (jogoAtivo) {
+        jogador.push(mazo.pop());
+        atualizarInterface();
+    }
+}
+
+function stand() {
+    if (jogoAtivo) {
+        while (calcularPontuacao(dealer) < 17) {
+            dealer.push(mazo.pop());
+        }
+        atualizarInterface();
+
+        const pontuacaoJogador = calcularPontuacao(jogador);
+        const pontuacaoDealer = calcularPontuacao(dealer);
+
+        if (pontuacaoDealer > 21) {
+            document.getElementById('message').innerText = 'Dealer estourou! Você venceu.';
+        } else if (pontuacaoJogador > pontuacaoDealer) {
+            document.getElementById('message').innerText = 'Você venceu!';
+        } else if (pontuacaoJogador < pontuacaoDealer) {
+            document.getElementById('message').innerText = 'Dealer venceu!';
+        } else {
+            document.getElementById('message').innerText = 'Empate!';
+        }
+
+        jogoAtivo = false;
+        document.getElementById('hit-button').disabled = true;
+        document.getElementById('stand-button').disabled = true;
+    }
 }
