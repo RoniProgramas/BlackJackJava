@@ -1,7 +1,7 @@
 let mazo = [];
 let jogador = [];
 let dealer = [];
-let gameOver = false; // Variável para controlar o estado do jogo
+let gameOver = false;
 
 // Função para criar o mazo de cartas
 function criarMazo() {
@@ -64,8 +64,8 @@ function shuffle(array) {
 function hit() {
     if (!gameOver) {
         jogador.push(mazo.pop()); // Adiciona apenas uma carta ao jogador
-
         const playerValue = calcularPontuacao(jogador);
+
         if (playerValue > 21) {
             gameOver = true;
             document.getElementById("message").innerText = "Você estourou! Dealer venceu.";
@@ -83,7 +83,6 @@ function updateDisplay() {
 
 // Função para o jogador "STAND"
 function stand() {
-    // O dealer tira cartas até atingir entre 20 e 21
     while (calcularPontuacao(dealer) < 20 && mazo.length > 0) {
         const cartaNecessaria = calcularCartaNecessaria(dealer);
         if (cartaNecessaria) {
@@ -117,32 +116,23 @@ function stand() {
 // Função para determinar a carta que o dealer deve puxar
 function calcularCartaNecessaria(dealer) {
     const pontuacaoAtual = calcularPontuacao(dealer);
-    const valorNecessario = 21 - pontuacaoAtual;
+    let cartaNecessaria;
 
-    // Encontra uma carta no mazo que tenha o valor necessário
-    let cartaNecessaria = null;
-    if (valorNecessario > 0) {
+    if (pontuacaoAtual < 21) {
+        const valorNecessario = 21 - pontuacaoAtual;
+
+        // Encontra uma carta no mazo que tenha o valor necessário
         cartaNecessaria = mazo.find(carta => {
             const valor = carta.valor;
             if (valor === 'A') return valorNecessario <= 11; // Ás pode contar como 1 ou 11
             if (isNaN(valor)) return false; // J, Q, K não contam como números
-            return parseInt(valor) === valorNecessario; // Verifica se a carta tem o valor necessário
-        });
-    }
-
-    // Se não houver carta exata, procura uma carta que não faça o dealer estourar
-    if (!cartaNecessaria) {
-        cartaNecessaria = mazo.find(carta => {
-            const valor = carta.valor;
-            if (valor === 'A') return pontuacaoAtual + 11 <= 21; // Ás pode contar como 1 ou 11
-            if (isNaN(valor)) return false; // J, Q, K não contam como números
             return parseInt(valor) <= valorNecessario; // Verifica se a carta não faz estourar
         });
-    }
 
-    // Remove a carta do mazo para que não seja usada novamente
-    if (cartaNecessaria) {
-        mazo = mazo.filter(carta => carta !== cartaNecessaria);
+        // Remove a carta do mazo para que não seja usada novamente
+        if (cartaNecessaria) {
+            mazo = mazo.filter(carta => carta !== cartaNecessaria);
+        }
     }
 
     return cartaNecessaria;
