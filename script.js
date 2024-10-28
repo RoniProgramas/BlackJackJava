@@ -74,33 +74,50 @@ function hit() {
 
 // Função para o jogador "STAND"
 function stand() {
-    // O dealer revela a segunda carta
-    dealer.push(mazo.pop());
-    document.getElementById('dealer-cards').innerHTML = dealer.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
-    const pontuacaoDealer = calcularPontuacao(dealer);
-    document.getElementById('dealer-score').innerText = `Pontuação: ${pontuacaoDealer}`;
-    
-    // Dealer sempre joga para ganhar
-    while (pontuacaoDealer < 19) {
-        const novaCarta = mazo.pop();
-        dealer.push(novaCarta);
-        pontuacaoDealer = calcularPontuacao(dealer);
-        document.getElementById('dealer-cards').innerHTML = dealer.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
-        document.getElementById('dealer-score').innerText = `Pontuação: ${pontuacaoDealer}`;
+    // O dealer revela a segunda carta e finaliza a mão
+    while (calcularPontuacao(dealer) < 17) {
+        dealer.push(mazo.pop());
     }
-    
-    // Verificação final
-    if (pontuacaoDealer > 21) {
-        document.getElementById('message').innerText = "Dealer estourou! Você venceu.";
+
+    ajustarPontuacaoDealer();
+
+    const pontuacaoJogador = calcularPontuacao(jogador);
+    const pontuacaoDealer = calcularPontuacao(dealer);
+
+    document.getElementById('dealer-cards').innerHTML = dealer.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
+    document.getElementById('dealer-score').innerText = `Pontuação: ${pontuacaoDealer}`;
+
+    if (pontuacaoDealer > pontuacaoJogador) {
+        document.getElementById('message').innerText = "Dealer venceu!";
+    } else if (pontuacaoJogador > pontuacaoDealer) {
+        document.getElementById('message').innerText = "Você venceu!";
     } else {
-        if (calcularPontuacao(jogador) > pontuacaoDealer) {
-            document.getElementById('message').innerText = "Você venceu!";
+        document.getElementById('message').innerText = "Empate!";
+    }
+
+    finalizarJogo();
+}
+
+// Função para garantir que o dealer sempre tenha entre 19 e 21
+function ajustarPontuacaoDealer() {
+    let pontuacaoDealer = calcularPontuacao(dealer);
+
+    while (pontuacaoDealer < 19 || pontuacaoDealer > 21) {
+        dealer.pop();
+        const novaCarta = mazo.find(carta => {
+            const novaMao = [...dealer, carta];
+            const novaPontuacao = calcularPontuacao(novaMao);
+            return novaPontuacao >= 19 && novaPontuacao <= 21;
+        });
+        
+        if (novaCarta) {
+            dealer.push(novaCarta);
+            mazo = mazo.filter(carta => carta !== novaCarta);
+            pontuacaoDealer = calcularPontuacao(dealer);
         } else {
-            document.getElementById('message').innerText = "Dealer venceu!";
+            break;
         }
     }
-    
-    finalizarJogo();
 }
 
 // Função para finalizar o jogo
