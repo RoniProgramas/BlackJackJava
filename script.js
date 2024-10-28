@@ -50,8 +50,6 @@ function iniciarJogo() {
     document.getElementById('hit-button').disabled = false;
     document.getElementById('stand-button').disabled = false;
     document.getElementById('message').innerText = '';
-
-    gameOver = false; // Reseta o estado do jogo
 }
 
 // Função para embaralhar o mazo
