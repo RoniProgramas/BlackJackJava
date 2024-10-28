@@ -167,9 +167,9 @@ function updateDisplay() {
 
 // Função para o jogador "STAND"
 function stand() {
-    dealer.push(mazo.pop()); // O dealer tira uma carta para completar a mão
+    dealer.push(mazo.pop()); //
 
-    // Lógica do dealer para garantir que ele não estoure
+  
     while (calcularPontuacao(dealer) < 20 && mazo.length > 0) {
         const cartaNecessaria = calcularCartaNecessaria(dealer);
         if (cartaNecessaria) {
@@ -208,21 +208,21 @@ function calcularCartaNecessaria(dealer) {
     if (pontuacaoAtual < 20) {
         const valorNecessario = 21 - pontuacaoAtual;
 
-        // Encontra uma carta no mazo que tenha o valor necessário
+        
         cartaNecessaria = mazo.find(carta => {
             const valor = carta.valor;
-            if (valor === 'A') return valorNecessario <= 11; // Ás pode contar como 1 ou 11
-            if (isNaN(valor)) return false; // J, Q, K não contam como números
-            return parseInt(valor) === valorNecessario; // Verifica se a carta tem o valor necessário
+            if (valor === 'A') return valorNecessario <= 11; 
+            if (isNaN(valor)) return false; 
+            return parseInt(valor) === valorNecessario; 
         });
 
-        // Se não houver carta exata, procura uma carta que não faça o dealer estourar
+        
         if (!cartaNecessaria) {
             cartaNecessaria = mazo.find(carta => {
                 const valor = carta.valor;
-                if (valor === 'A') return pontuacaoAtual + 11 <= 21; // Ás pode contar como 1 ou 11
-                if (isNaN(valor)) return false; // J, Q, K não contam como números
-                return parseInt(valor) <= 21 - pontuacaoAtual; // Verifica se a carta não faz estourar
+                if (valor === 'A') return pontuacaoAtual + 11 <= 21; 
+                if (isNaN(valor)) return false; 
+                return parseInt(valor) <= 21 - pontuacaoAtual; 
             });
         }
 
