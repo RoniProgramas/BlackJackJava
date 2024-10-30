@@ -78,7 +78,9 @@ function hit() {
         updateDisplay(); // Atualiza a interface
 
         // Reativa o botão após a atualização da interface
-        document.getElementById('hit-button').disabled = !gameOver;
+        setTimeout(() => {
+            document.getElementById('hit-button').disabled = false;
+        }, 2000);
     }
 }
 
