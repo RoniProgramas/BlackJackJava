@@ -64,7 +64,7 @@ function shuffle(array) {
 // Função para o jogador "HIT"
 function hit() {
     if (!gameOver) {
-        jogador.push(mazo.pop()); // Corrigido de playerHand para jogador
+        jogador.push(mazo.pop());
         const playerValue = calcularPontuacao(jogador);
         if (playerValue > 21) {
             gameOver = true;
