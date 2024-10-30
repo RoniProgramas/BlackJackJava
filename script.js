@@ -1,7 +1,7 @@
 let mazo = [];
 let jogador = [];
 let dealer = [];
-let gameOver = false; // Variável gameOver definida
+let gameOver = false;
 
 // Função para criar o mazo de cartas
 function criarMazo() {
