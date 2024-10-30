@@ -72,6 +72,11 @@ function hit() {
     }
 }
 
+function updateDisplay() {
+    document.getElementById('player-cards').innerHTML = jogador.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
+    document.getElementById('player-score').innerText = `Pontuação: ${calcularPontuacao(jogador)}`;
+}
+
 // Função para o jogador "STAND"
 function stand() {
     // O dealer revela a segunda carta e finaliza a mão
