@@ -79,11 +79,11 @@ function hit() {
 
         updateDisplay(); // Atualiza a interface
 
-        // Reativa o botão após 2 segundos
+    
         setTimeout(() => {
             document.getElementById('hit-button').disabled = false;
             console.log("Hit button reactivated"); // Log quando o botão é reativado
-        }, 1000);
+        }, 700);
     }
 }
 
