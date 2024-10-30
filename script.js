@@ -62,8 +62,8 @@ function shuffle(array) {
 // Função para o jogador "HIT"
 function hit() {
     if (!gameOver) {
-        playerHand.push(mazo.pop());
-        const playerValue = calculateHandValue(playerHand);
+        jogador.push(mazo.pop());
+        const playerValue = calcularPontuacao(jogador);
         if (playerValue > 21) {
             gameOver = true;
             document.getElementById("message").innerText = "Você estourou! Dealer venceu.";
