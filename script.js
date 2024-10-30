@@ -64,25 +64,29 @@ function shuffle(array) {
 // Função para o jogador "HIT"
 function hit() {
     if (!gameOver) {
-        
+        console.log("Hit button clicked"); // Log quando o botão é clicado
         document.getElementById('hit-button').disabled = true;
 
         jogador.push(mazo.pop());
         const playerValue = calcularPontuacao(jogador);
+        console.log(`Player value: ${playerValue}`); // Log da pontuação do jogador
 
         if (playerValue > 21) {
             gameOver = true;
             document.getElementById("message").innerText = "Você estourou! Dealer venceu.";
+            console.log("Game over triggered"); // Log quando o jogo termina
         }
 
         updateDisplay(); // Atualiza a interface
 
-        // Reativa o botão após a atualização da interface
+        // Reativa o botão após 2 segundos
         setTimeout(() => {
             document.getElementById('hit-button').disabled = false;
+            console.log("Hit button reactivated"); // Log quando o botão é reativado
         }, 2000);
     }
 }
+
 
 // Função para atualizar a interface do jogo
 function updateDisplay() {
