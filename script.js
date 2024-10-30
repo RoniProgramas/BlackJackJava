@@ -83,7 +83,7 @@ function hit() {
         setTimeout(() => {
             document.getElementById('hit-button').disabled = false;
             console.log("Hit button reactivated"); // Log quando o botão é reativado
-        }, 2000);
+        }, 1000);
     }
 }
 
