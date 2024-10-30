@@ -64,13 +64,21 @@ function shuffle(array) {
 // Função para o jogador "HIT"
 function hit() {
     if (!gameOver) {
+        
+        document.getElementById('hit-button').disabled = true;
+
         jogador.push(mazo.pop());
         const playerValue = calcularPontuacao(jogador);
+
         if (playerValue > 21) {
             gameOver = true;
             document.getElementById("message").innerText = "Você estourou! Dealer venceu.";
         }
+
         updateDisplay(); // Atualiza a interface
+
+        // Reativa o botão após a atualização da interface
+        document.getElementById('hit-button').disabled = !gameOver;
     }
 }
 
