@@ -59,3 +59,9 @@ button:disabled {
     font-size: 1.2em; /* Tamanho da fonte da mensagem */
     margin-top: 20px; /* Espaço acima da mensagem */
 }
+
+.card {
+    width: 30px;
+    length: 50px;
+    margin: 5px;
+}
