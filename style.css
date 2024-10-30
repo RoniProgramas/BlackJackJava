@@ -1,16 +1,16 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #2c3e50; /* Cor de fundo escura */
+    background-color: #008000; /* Cor de fundo escura */
     color: white; /* Cor do texto */
     margin: 0;
     padding: 20px;
 }
 
 .container {
-    max-width: 900px; /* Limita a largura do container */
+    max-width: 800px; /* Limita a largura do container */
     margin: 0 auto; /* Centraliza o container na tela */
     padding: 20px;
-    background-color: #34495e; /* Cor de fundo do container */
+    background-color: #03300b; /* Cor de fundo do container */
     border-radius: 10px; /* Cantos arredondados */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
 }
@@ -24,7 +24,7 @@ h1, h2 {
 }
 
 #player-hand, #dealer-hand {
-    margin: 40px 0; /* Espaço entre as mãos do jogador e do dealer */
+    margin: 30px 0; /* Espaço entre as mãos do jogador e do dealer */
     padding: 10px;
     border: 1px solid #ecf0f1; /* Borda clara */
     border-radius: 5px; /* Cantos arredondados */
