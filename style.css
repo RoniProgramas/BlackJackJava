@@ -24,7 +24,7 @@ h1, h2 {
 }
 
 #player-hand, #dealer-hand {
-    margin: 20px 0; /* Espaço entre as mãos do jogador e do dealer */
+    margin: 40px 0; /* Espaço entre as mãos do jogador e do dealer */
     padding: 10px;
     border: 1px solid #ecf0f1; /* Borda clara */
     border-radius: 5px; /* Cantos arredondados */
