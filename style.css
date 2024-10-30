@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    max-width: 600px; /* Limita a largura do container */
+    max-width: 900px; /* Limita a largura do container */
     margin: 0 auto; /* Centraliza o container na tela */
     padding: 20px;
     background-color: #34495e; /* Cor de fundo do container */
