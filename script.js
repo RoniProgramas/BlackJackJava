@@ -90,7 +90,9 @@ function hit() {
 
 // Função para atualizar a interface do jogo
 function updateDisplay() {
-    document.getElementById('player-cards').innerHTML = jogador.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
+    document.getElementById('player-cards').innerHTML = jogador.map(carta => {
+    return `<img src="imagens/${carta.valor}${carta.naipe}.png" alt="${carta.valor}${carta.naipe}" class="card">`;
+}).join('');
     document.getElementById('player-score').innerText = `Pontuação: ${calcularPontuacao(jogador)}`;
 }
 
@@ -105,7 +107,9 @@ function stand() {
     const pontuacaoJogador = calcularPontuacao(jogador);
     const pontuacaoDealer = calcularPontuacao(dealer);
 
-    document.getElementById('dealer-cards').innerHTML = dealer.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
+    document.getElementById('dealer-cards').innerHTML = dealer.map(carta => {
+    return `<img src="imagens/${carta.valor}${carta.naipe}.png" alt="${carta.valor}${carta.naipe}" class="card">`;
+}).join('');
     document.getElementById('dealer-score').innerText = `Pontuação: ${pontuacaoDealer}`;
 
     if (pontuacaoDealer > pontuacaoJogador) {
