@@ -1,6 +1,7 @@
 let mazo = [];
 let jogador = [];
 let dealer = [];
+let gameOver = false; // Variável gameOver definida
 
 // Função para criar o mazo de cartas
 function criarMazo() {
@@ -39,6 +40,7 @@ function iniciarJogo() {
     
     jogador = [mazo.pop(), mazo.pop()];
     dealer = [mazo.pop()]; // Apenas uma carta visível do dealer
+    gameOver = false;
 
     document.getElementById('player-cards').innerHTML = jogador.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
     document.getElementById('player-score').innerText = `Pontuação: ${calcularPontuacao(jogador)}`;
@@ -68,10 +70,11 @@ function hit() {
             gameOver = true;
             document.getElementById("message").innerText = "Você estourou! Dealer venceu.";
         }
-        updateDisplay();
+        updateDisplay(); // Atualiza a interface
     }
 }
 
+// Função para atualizar a interface do jogo
 function updateDisplay() {
     document.getElementById('player-cards').innerHTML = jogador.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
     document.getElementById('player-score').innerText = `Pontuação: ${calcularPontuacao(jogador)}`;
@@ -79,7 +82,6 @@ function updateDisplay() {
 
 // Função para o jogador "STAND"
 function stand() {
-    // O dealer revela a segunda carta e finaliza a mão
     while (calcularPontuacao(dealer) < 17) {
         dealer.push(mazo.pop());
     }
@@ -135,4 +137,3 @@ function finalizarJogo() {
 document.getElementById('start-button').addEventListener('click', iniciarJogo);
 document.getElementById('hit-button').addEventListener('click', hit);
 document.getElementById('stand-button').addEventListener('click', stand);
-
