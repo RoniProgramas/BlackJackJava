@@ -8,6 +8,7 @@ body {
 
 .container {
     max-width: 800px; /* Limita a largura do container */
+    max-lenght: 300px;
     margin: 0 auto; /* Centraliza o container na tela */
     padding: 20px;
     background-color: #03300b; /* Cor de fundo do container */
