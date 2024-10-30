@@ -42,16 +42,21 @@ function iniciarJogo() {
     dealer = [mazo.pop()]; // Apenas uma carta visível do dealer
     gameOver = false;
 
-    document.getElementById('player-cards').innerHTML = jogador.map(carta => `${carta.valor}${carta.naipe}`).join(', ');
+    // Atualiza a exibição das cartas do jogador
+    document.getElementById('player-cards').innerHTML = jogador.map(carta => {
+        return `<img src="imagens/${carta.valor}${carta.naipe}.png" alt="${carta.valor}${carta.naipe}" class="card">`;
+    }).join('');
     document.getElementById('player-score').innerText = `Pontuação: ${calcularPontuacao(jogador)}`;
-    
-    document.getElementById('dealer-cards').innerHTML = `${dealer[0].valor}${dealer[0].naipe}, ?`; // Exibe apenas uma carta do dealer
+
+    // Exibe a carta visível do dealer
+    document.getElementById('dealer-cards').innerHTML = `<img src="imagens/${dealer[0].valor}${dealer[0].naipe}.png" alt="${dealer[0].valor}${dealer[0].naipe}" class="card">, ?`;
     document.getElementById('dealer-score').innerText = '';
-    
+
     document.getElementById('hit-button').disabled = false;
     document.getElementById('stand-button').disabled = false;
     document.getElementById('message').innerText = '';
 }
+
 
 // Função para embaralhar o mazo
 function shuffle(array) {
