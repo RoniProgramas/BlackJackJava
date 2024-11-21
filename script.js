@@ -1,4 +1,3 @@
-
 let mazo = [];
 let jogador = [];
 let dealer = [];
