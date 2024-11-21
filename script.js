@@ -3,14 +3,14 @@ let jogador = [];
 let dealer = [];
 let gameOver = false;
 
-// Função para criar o mazo de cartas
+
 function criarMazo() {
     const naipes = ['♥', '♦', '♣', '♠'];
     const valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
     return valores.flatMap(valor => naipes.map(naipe => ({ valor, naipe })));
 }
 
-// Função para calcular a pontuação
+
 function calcularPontuacao(mao) {
     let total = 0;
     let ases = 0;
@@ -33,22 +33,22 @@ function calcularPontuacao(mao) {
     return total;
 }
 
-// Função para iniciar o jogo
+
 function iniciarJogo() {
     mazo = criarMazo();
     shuffle(mazo);
     
     jogador = [mazo.pop(), mazo.pop()];
-    dealer = [mazo.pop()]; // Apenas uma carta visível do dealer
+    dealer = [mazo.pop()]; 
     gameOver = false;
 
-    // Atualiza a exibição das cartas do jogador
+   
     document.getElementById('player-cards').innerHTML = jogador.map(carta => {
         return `<img src="imagens/${carta.valor}${carta.naipe}.png" alt="${carta.valor}${carta.naipe}" class="card">`;
     }).join('');
     document.getElementById('player-score').innerText = `Pontuação: ${calcularPontuacao(jogador)}`;
 
-    // Exibe a carta visível do dealer
+    
     document.getElementById('dealer-cards').innerHTML = `<img src="imagens/${dealer[0].valor}${dealer[0].naipe}.png" alt="${dealer[0].valor}${dealer[0].naipe}" class="card">, ?`;
     document.getElementById('dealer-score').innerText = '';
 
@@ -58,7 +58,7 @@ function iniciarJogo() {
 }
 
 
-// Função para embaralhar o mazo
+
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -66,34 +66,33 @@ function shuffle(array) {
     }
 }
 
-// Função para o jogador "HIT"
+
 function hit() {
     if (!gameOver) {
-        console.log("Hit button clicked"); // Log quando o botão é clicado
+        console.log("Hit button clicked"); 
         document.getElementById('hit-button').disabled = true;
 
         jogador.push(mazo.pop());
         const playerValue = calcularPontuacao(jogador);
-        console.log(`Player value: ${playerValue}`); // Log da pontuação do jogador
-
+        console.log(`Player value: ${playerValue}`); 
         if (playerValue > 21) {
             gameOver = true;
             document.getElementById("message").innerText = "Você estourou! Dealer venceu.";
-            console.log("Game over triggered"); // Log quando o jogo termina
+            console.log("Game over triggered"); 
         }
 
-        updateDisplay(); // Atualiza a interface
+        updateDisplay(); 
 
     
         setTimeout(() => {
             document.getElementById('hit-button').disabled = false;
-            console.log("Hit button reactivated"); // Log quando o botão é reativado
+            console.log("Hit button reactivated"); 
         }, 400);
     }
 }
 
 
-// Função para atualizar a interface do jogo
+
 function updateDisplay() {
     document.getElementById('player-cards').innerHTML = jogador.map(carta => {
     return `<img src="imagens/${carta.valor}${carta.naipe}.png" alt="${carta.valor}${carta.naipe}" class="card">`;
@@ -101,7 +100,7 @@ function updateDisplay() {
     document.getElementById('player-score').innerText = `Pontuação: ${calcularPontuacao(jogador)}`;
 }
 
-// Função para o jogador "STAND"
+
 function stand() {
     while (calcularPontuacao(dealer) < 17) {
         dealer.push(mazo.pop());
@@ -150,13 +149,13 @@ function ajustarPontuacaoDealer() {
     }
 }
 
-// Função para finalizar o jogo
+
 function finalizarJogo() {
     document.getElementById('hit-button').disabled = true;
     document.getElementById('stand-button').disabled = true;
 }
 
-// Eventos dos botões
+
 document.getElementById('start-button').addEventListener('click', iniciarJogo);
 document.getElementById('hit-button').addEventListener('click', hit);
 document.getElementById('stand-button').addEventListener('click', stand);
