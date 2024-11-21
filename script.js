@@ -1,9 +1,9 @@
-let baralho = [];
+let mazo = [];
 let jogador = [];
 let dealer = [];
 let gameOver = false;
 
-function criarBaralho() {
+function criarMazo() {
     const naipes = ['♥', '♦', '♣', '♠'];
     const valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
     return valores.flatMap(valor => naipes.map(naipe => ({ valor, naipe })));
@@ -34,11 +34,11 @@ function calcularPontuacao(mao) {
 
 // Função para iniciar o jogo
 function iniciarJogo() {
-    baralho = criarBaralho();
-    shuffle(baralho);
+    mazo = criarMazo();
+    shuffle(mazo);
     
-    jogador = [baralho.pop(), baralho.pop()];
-    dealer = [baralho.pop()]; 
+    jogador = [mazo.pop(), mazo.pop()];
+    dealer = [mazo.pop()]; 
     gameOver = false;
 
     document.getElementById('player-cards').innerHTML = jogador.map(carta => {
