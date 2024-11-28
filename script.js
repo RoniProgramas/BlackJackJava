@@ -2,7 +2,6 @@ let mazo = [];
 let jogador = [];
 let dealer = [];
 let gameOver = false;
-
 let playerWins = 0;
 let dealerWins = 0;
 
@@ -81,6 +80,9 @@ function hit() {
             gameOver = true;
             document.getElementById("message").innerText = "Você estourou! Dealer venceu.";
             console.log("Game over triggered"); 
+            atualizarVitorias();
+        } else {
+            atualizarVitorias();
         }
 
         updateDisplay(); 
@@ -129,7 +131,6 @@ function stand() {
     }
 
     atualizarVitórias();
-    
     finalizarJogo();
 }
 
