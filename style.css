@@ -65,3 +65,9 @@ button:disabled {
     length: 155px;
     margin: 15px;
 }
+
+#victories {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
