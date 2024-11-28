@@ -81,8 +81,6 @@ function hit() {
             document.getElementById("message").innerText = "Você estourou! Dealer venceu.";
             console.log("Game over triggered"); 
             atualizarVitorias();
-        } else {
-            atualizarVitorias();
         }
 
         updateDisplay(); 
