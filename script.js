@@ -121,14 +121,10 @@ function stand() {
 
     if (pontuacaoDealer > pontuacaoJogador) {
         document.getElementById('message').innerText = "Dealer venceu!";
-        dealerWins = dealerWins +1;
-        atualizarVitorias();
-        return;
+        dealerWins++;
     } else if (pontuacaoJogador > pontuacaoDealer) {
         document.getElementById('message').innerText = "Você venceu!";
-        playerWins = playerWins +1;
-        atualizarVitorias();
-        return;
+        playerWins++;
     } else {
         document.getElementById('message').innerText = "Empate!";
     }
