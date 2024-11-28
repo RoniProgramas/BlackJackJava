@@ -3,6 +3,8 @@ let jogador = [];
 let dealer = [];
 let gameOver = false;
 
+let playerWins = 0;
+let dealerWins = 0;
 
 function criarMazo() {
     const naipes = ['♥', '♦', '♣', '♠'];
