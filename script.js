@@ -79,7 +79,8 @@ function hit() {
         if (playerValue > 21) {
             gameOver = true;
             document.getElementById("message").innerText = "Você estourou! Dealer venceu.";
-            console.log("Game over triggered"); 
+            console.log("Game over triggered");
+            dealerWins++;
             atualizarVitorias();
         }
 
