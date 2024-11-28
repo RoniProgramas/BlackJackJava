@@ -129,12 +129,6 @@ function stand() {
         document.getElementById('message').innerText = "Empate!";
     }
 
-     setTimeout(() => {
-            document.getElementById('stand-button').disabled = false;
-            console.log("Stand button reactivated"); 
-        }, 400);
-    }
-}
     gameOver = true;
     atualizarVitorias();
     finalizarJogo();
