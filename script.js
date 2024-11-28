@@ -120,12 +120,16 @@ function stand() {
 
     if (pontuacaoDealer > pontuacaoJogador) {
         document.getElementById('message').innerText = "Dealer venceu!";
+        dealerWins++;
     } else if (pontuacaoJogador > pontuacaoDealer) {
         document.getElementById('message').innerText = "Você venceu!";
+        playerWins++;
     } else {
         document.getElementById('message').innerText = "Empate!";
     }
 
+    atualizarVitórias();
+    
     finalizarJogo();
 }
 
@@ -151,6 +155,10 @@ function ajustarPontuacaoDealer() {
     }
 }
 
+function atualizarVitórias() {
+    document.getElementById('player-wins').InnerText = 'Vitórias do Jogador': ${playerWins};
+    document.getElementbyId('dealer-wins').InnerText = 'Vitórias do Dealer': ${dealerWins};
+}
 
 function finalizarJogo() {
     document.getElementById('hit-button').disabled = true;
