@@ -66,8 +66,12 @@ button:disabled {
     margin: 15px;
 }
 
-#victories {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 1.4em;
+#player-wins, #dealer-wins {
+    position: absolute;
+    top: 20px; 
+    left: 20px; 
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
 }
+
