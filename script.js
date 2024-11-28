@@ -156,8 +156,8 @@ function ajustarPontuacaoDealer() {
 }
 
 function atualizarVitórias() {
-    document.getElementById('player-wins').InnerText = 'Vitórias do Jogador': ${playerWins};
-    document.getElementbyId('dealer-wins').InnerText = 'Vitórias do Dealer': ${dealerWins};
+    document.getElementById('player-wins').innerText = 'Vitórias do Jogador: ${playerWins};'
+    document.getElementbyId('dealer-wins').innerText = 'Vitórias do Dealer: ${dealerWins};'
 }
 
 function finalizarJogo() {
