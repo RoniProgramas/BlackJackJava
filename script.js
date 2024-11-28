@@ -130,6 +130,8 @@ function stand() {
     }
 
     atualizarVitorias();
+
+    gameOver=true;
     finalizarJogo();
 }
 
