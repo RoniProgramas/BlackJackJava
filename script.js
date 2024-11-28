@@ -122,15 +122,19 @@ function stand() {
     if (pontuacaoDealer > pontuacaoJogador) {
         document.getElementById('message').innerText = "Dealer venceu!";
         dealerWins = dealerWins +1;
-        dealerWins = dealerWins/2;
     } else if (pontuacaoJogador > pontuacaoDealer) {
         document.getElementById('message').innerText = "Você venceu!";
         playerWins = playerwins +1;
-        playerWins = playerWins/2;
     } else {
         document.getElementById('message').innerText = "Empate!";
     }
 
+     setTimeout(() => {
+            document.getElementById('stand-button').disabled = false;
+            console.log("Stand button reactivated"); 
+        }, 400);
+    }
+}
     gameOver = true;
     atualizarVitorias();
     finalizarJogo();
