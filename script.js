@@ -129,6 +129,7 @@ function stand() {
         document.getElementById('message').innerText = "Empate!";
     }
 
+    gameOver = true;
     atualizarVitorias();
     finalizarJogo();
 }
