@@ -68,7 +68,7 @@ button:disabled {
 
 #player-wins, #dealer-wins {
     position: absolute;
-    top: 20px;
+    top: 50px;
     font-size: 1.2em;
     font-weight: bold;
     color: white;
@@ -76,12 +76,12 @@ button:disabled {
 }
 
 #player-wins {
-    left: 20px; 
+    right: 20px; 
     margin-bottom: 10px; 
 }
 
 #dealer-wins {
-    left: 20px; 
+    right: 20px; 
     margin-bottom: 10px; 
 }
 
