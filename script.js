@@ -106,6 +106,7 @@ function updateDisplay() {
 
 function stand() {
     if (gameOver) return;
+    gameOver = true; 
 
     document.getElementById('stand-button').disabled = true;
 
