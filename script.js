@@ -181,3 +181,6 @@ function finalizarJogo() {
 document.getElementById('start-button').addEventListener('click', iniciarJogo);
 document.getElementById('hit-button').addEventListener('click', hit);
 document.getElementById('stand-button').addEventListener('click', stand);
+
+const standButton = document.getElementById('stand-button');
+standButton.addEventListener('click', () => console.log('Botão Stand clicado'));
