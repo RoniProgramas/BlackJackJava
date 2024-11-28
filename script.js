@@ -137,7 +137,6 @@ function stand() {
     gameOver = true;
     atualizarVitorias();
     finalizarJogo();
-
     setTimeout(() => {
         document.getElementById('stand-button').disabled = false;
     }, 500);
