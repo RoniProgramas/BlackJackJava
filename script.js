@@ -130,7 +130,7 @@ function stand() {
         document.getElementById('message').innerText = "Empate!";
     }
 
-    atualizarVitórias();
+    atualizarVitorias();
     finalizarJogo();
 }
 
@@ -156,7 +156,7 @@ function ajustarPontuacaoDealer() {
     }
 }
 
-function atualizarVitórias() {
+function atualizarVitorias() {
     document.getElementById('player-wins').innerText = `Vitórias do Jogador: ${playerWins}`;
     document.getElementById('dealer-wins').innerText = `Vitórias do Dealer: ${dealerWins}`;
 }
