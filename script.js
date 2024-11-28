@@ -105,6 +105,11 @@ function updateDisplay() {
 
 
 function stand() {
+    if (gameOver) return;
+
+    document.getElementById('stand-button').disabled = true;
+
+    setTimeout(() => {
     while (calcularPontuacao(dealer) < 17) {
         dealer.push(mazo.pop());
     }
