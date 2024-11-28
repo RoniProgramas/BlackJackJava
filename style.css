@@ -76,12 +76,12 @@ button:disabled {
 }
 
 #player-wins {
-    top: 120px; 
+    top: 180px; 
     margin-bottom: 15px; 
 }
 
 #dealer-wins {
-    top: 150px; 
+    top: 210px; 
 }
 
 
