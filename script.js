@@ -140,7 +140,7 @@ function stand() {
     setTimeout(() => {
         document.getElementById('stand-button').disabled = false;
     }, 500);
-    }, 150);
+    }, 100);
 }
 
 // Função para garantir que o dealer sempre tenha entre 19 e 21
